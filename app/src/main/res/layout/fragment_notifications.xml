@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f3f3"
+    tools:context=".Activity.NotificationsActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:id="@+id/view"
+        android:background="#E4FFD1"/>
+
+    <TextView
+        android:id="@+id/tvNotification"
+        style="@style/TextView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E4FFD1"
+        android:layout_below="@+id/view"
+        android:drawableLeft="@drawable/ic_notifications_full"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/blue"
+        android:padding="16dp"
+        android:text="Lựa chọn sản phẩm của bạn và nhấn vào nút mua hàng để thực hiện giao dịch!" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcvCart"
+        android:padding="8dp"
+        android:layout_below="@id/tvNotification"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <CheckBox
+            android:id="@+id/cbxAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/cbxAll"
+            android:text="Tất cả"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@color/blue"
+            android:text="Mua hàng"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:padding="22dp"/>
+
+        <TextView
+            android:id="@+id/tvSumPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/tvBuy"
+            android:text="đ 0"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:layout_below="@id/tvSum"
+            android:textStyle="bold"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tvSum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/tvBuy"
+            android:layout_margin="8dp"
+            android:text="@string/sumPrice"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
