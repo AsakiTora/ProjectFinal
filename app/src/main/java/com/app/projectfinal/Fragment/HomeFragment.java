@@ -7,26 +7,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
 
 import com.app.projectfinal.R;
-import com.app.projectfinal.model.LoaiSanPham;
-import com.app.projectfinal.model.SanPham;
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class HomeFragment extends Fragment {
 

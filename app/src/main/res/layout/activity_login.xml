@@ -44,8 +44,8 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_stroke_border_5"
         android:drawableStart="@drawable/google"
-        android:padding="5dp"
         android:gravity="center"
+        android:padding="5dp"
         android:text="@string/login_with_gg"
         android:textAlignment="center"
         android:textAllCaps="false" />

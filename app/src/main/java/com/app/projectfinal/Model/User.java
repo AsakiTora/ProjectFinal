@@ -1,7 +1,7 @@
 package com.app.projectfinal.model;
 
 public class User {
-    String id, phone_number, name, date_of_birth, role, avatar, address, pass, email, account;
+    String id, phone_number, name, date_of_birth, role, avatar, pass, email, username, status, is_online;
 
     public String getId() {
         return id;
@@ -51,14 +51,6 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPass() {
         return pass;
     }
@@ -75,12 +67,12 @@ public class User {
         this.email = email;
     }
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

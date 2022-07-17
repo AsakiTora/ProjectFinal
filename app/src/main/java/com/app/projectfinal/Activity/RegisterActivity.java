@@ -1,5 +1,6 @@
 package com.app.projectfinal.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +17,22 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.projectfinal.R;
 import com.app.projectfinal.utils.Constant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.ActionCodeSettings;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,20 +53,42 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText edt_pass;
     TextInputEditText edt_re_pass;
 
+    //firebase
+    private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
+
+    private boolean valid = true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        mRequestQueue = Volley.newRequestQueue(this);
         initView();
         changeScreenLogin();
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Register(Objects.requireNonNull(edt_phone.getText()).toString(), edt_pass.getText().toString());
+                registerServer(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
+                registerFirebase(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
             }
         });
+    }
+
+    private void sendMessageEmail(String email){
+        ActionCodeSettings actionCodeSettings =
+                ActionCodeSettings.newBuilder()
+                        .setHandleCodeInApp(true)
+                        .setAndroidPackageName(
+                                "com.app.projectfinal",
+                                true, /* installIfNotAvailable */
+                                "12"    /* minimumVersion */)
+                        .build();
+        fAuth.sendSignInLinkToEmail(email, actionCodeSettings);
     }
 
     private void changeScreenLogin(){
@@ -74,45 +109,62 @@ public class RegisterActivity extends AppCompatActivity {
         tv_login = (TextView) findViewById(R.id.tv_login);
     }
 
-    private void Register(final String phone, final String pass){
-
-        mRequestQueue = Volley.newRequestQueue(RegisterActivity.this);
-
-        mStringRequest = new StringRequest(Request.Method.POST, Constant.REGISTER, new Response.Listener<String>() {
+    private void registerServer(final String phone, final String pass){
+        JSONObject user = new JSONObject();
+        try {
+            user.put("phone", phone);
+            user.put("password", pass);
+            JSONObject data = new JSONObject();
+            data.put("user", user);
+            JSONObject datas = new JSONObject();
+            datas.put("data", data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constant.REGISTER, user, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-
-                    Toast.makeText(RegisterActivity.this, "ok",Toast.LENGTH_SHORT).show();
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this, e.toString(),Toast.LENGTH_LONG).show();
-                }
-
+            public void onResponse(JSONObject response) {
+                Toast.makeText(RegisterActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(RegisterActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-
+                Toast.makeText(RegisterActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
             }
-        }) {
+        });
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+    public boolean checkField(EditText textField){
+        String checkEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if (textField.getText().toString().isEmpty()){
+            textField.setError("Không được để trống");
+            valid = false;
+        } else {
+            valid = true;
+        }
+        return valid;
+    }
+
+    private void registerFirebase(String username, String password){
+        fAuth.createUserWithEmailAndPassword(username, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("phone", phone);
-                params.put("password", pass);
-
-                return params;
+            public void onSuccess(AuthResult authResult) {
+                FirebaseUser user = fAuth.getCurrentUser();
+                DocumentReference df = fStore.collection("Users").document(user.getUid());
+                Map<String, Object> userInfo = new HashMap<>();
+                userInfo.put("username", username);
+                userInfo.put("password", password);
+                df.set(userInfo);
+                finish();
             }
-        };
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
-        mStringRequest.setShouldCache(false);
-        mRequestQueue.add(mStringRequest);
+            }
+        });
     }
 }
