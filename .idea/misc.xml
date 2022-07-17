@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_login.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_register.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_splash.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/bg_border_20_bottom_left_right.xml" value="0.1675" />
         <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/bg_stroke_border_20.xml" value="0.121" />
         <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/custom_drawable_bottom_nav_home.xml" value="0.1675" />

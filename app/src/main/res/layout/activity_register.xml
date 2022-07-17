@@ -142,7 +142,6 @@
             style="@style/SupportText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="4dp"
             android:text="@string/agree" />
 
         <TextView
