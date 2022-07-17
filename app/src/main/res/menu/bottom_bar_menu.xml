@@ -4,19 +4,19 @@
 
     <item
         android:id="@+id/action_home"
-        android:title="@string/home_title"
+        android:title="@string/home"
         android:icon="@drawable/custom_drawable_bottom_nav_home"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_carts"
-        android:title="@string/carts_title"
+        android:title="@string/notification"
         android:icon="@drawable/custom_drawable_bottom_nav_notifications"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_user"
-        android:title="@string/me_title"
+        android:title="@string/personal"
         android:icon="@drawable/custom_drawable_bottom_nav_user"
         app:showAsAction="ifRoom"/>
 

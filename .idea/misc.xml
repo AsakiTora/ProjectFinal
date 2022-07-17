@@ -3,39 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/botron_timkiem.xml" value="0.3" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/custom_facebook.xml" value="0.2695" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/custom_google.xml" value="0.1995" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/custom_navbot.xml" value="0.19" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/show_password_selector.xml" value="0.1705" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_login.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_signin.xml" value="0.33" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_dashboard.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.32715477293790546" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_notifications.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/AndroidStudioProjects/MyApplication/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/drawable/custom_navbot.xml" value="0.295" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/drawable/custom_relative_header.xml" value="0.295" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/activity_dieu_khoan.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/activity_sign_up.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/activity_signin.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/fragment_home.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/fragment_notifications.xml" value="0.23444976076555024" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/fragment_user.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/item_rcv_notification.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/layout/item_sanpham.xml" value="0.3875" />
-        <entry key="..\:/Users/Ngoc/Desktop/DuAnTotNghiep2022/DATN2022/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2490740740740741" />
-        <entry key="app/src/main/res/layout/activity_cart.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/activity_dieu_khoan.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.31781737415503103" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.25185362903784353" />
-        <entry key="app/src/main/res/layout/item_rcv_notification.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/item_sanpham.xml" value="0.3288113316745623" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/bg_border_20_bottom_left_right.xml" value="0.1675" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/bg_stroke_border_20.xml" value="0.121" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/custom_drawable_bottom_nav_home.xml" value="0.1675" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/custom_drawable_bottom_nav_notifications.xml" value="0.1675" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/custom_drawable_bottom_nav_user.xml" value="0.1675" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/ic_cart.xml" value="0.1675" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/ic_outline_home.xml" value="0.1675" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/activity_home.xml" value="0.25" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/activity_logout.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/activity_main.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/activity_register.xml" value="0.176" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/layout/fragment_user.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/menu/apply_menu.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/menu/bottom_bar_menu.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/menu/dashboard_menu.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/menu/menu_detail.xml" value="0.2" />
+        <entry key="..\:/Users/Public/Test/app/src/main/res/menu/tool_bar_file_user.xml" value="0.1" />
       </map>
     </option>
   </component>

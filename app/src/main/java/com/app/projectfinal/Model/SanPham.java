@@ -1,4 +1,4 @@
-package com.app.projectfinal.Model;
+package com.app.projectfinal.model;
 
 public class SanPham {
 

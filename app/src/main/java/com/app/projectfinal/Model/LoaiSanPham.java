@@ -1,4 +1,4 @@
-package com.app.projectfinal.Model;
+package com.app.projectfinal.model;
 
 public class LoaiSanPham {
     private String ten_loai, hinh_loai;

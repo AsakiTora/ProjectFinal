@@ -1,81 +1,22 @@
-package com.app.projectfinal.Model;
+package com.app.projectfinal.model;
 
 public class User {
-    int id_user, id_group;
-    String account, avatar, name, email, address, password, birth, intro, phone, shop, avt_shop;
+    String id, phone_number, name, date_of_birth, role, avatar, address, pass, email, account;
 
-    public User(int id_user, int id_group, String phone, String account, String avatar, String name, String email, String address, String birth, String intro, String shop, String avt_shop) {
-        this.id_user = id_user;
-        this.id_group = id_group;
-        this.phone = phone;
-        this.account = account;
-        this.avatar = avatar;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.birth = birth;
-        this.intro = intro;
-        this.shop = shop;
-        this.avt_shop = avt_shop;
+    public String getId() {
+        return id;
     }
 
-    public User() {
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getShop() {
-        return shop;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setShop(String shop) {
-        this.shop = shop;
-    }
-
-    public String getAvt_shop() {
-        return avt_shop;
-    }
-
-    public void setAvt_shop(String avt_shop) {
-        this.avt_shop = avt_shop;
-    }
-
-    public int getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
-
-    public int getId_group() {
-        return id_group;
-    }
-
-    public void setId_group(int id_group) {
-        this.id_group = id_group;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getName() {
@@ -86,12 +27,28 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDate_of_birth(String date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getAddress() {
@@ -102,27 +59,28 @@ public class User {
         this.address = address;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
-    public String getBirth() {
-        return birth;
+    public String getEmail() {
+        return email;
     }
 
-    public void setBirth(String birth) {
-        this.birth = birth;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getIntro() {
-        return intro;
+    public String getAccount() {
+        return account;
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
+    public void setAccount(String account) {
+        this.account = account;
     }
+
 }
