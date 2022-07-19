@@ -1,5 +1,7 @@
 package com.app.projectfinal.activity;
 
+import static com.app.projectfinal.utils.Constant.LOGIN;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,19 +9,30 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.app.projectfinal.R;
+import com.app.projectfinal.utils.ProgressBarDialog;
+import com.app.projectfinal.utils.VolleySingleton;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -30,15 +43,19 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextView tv_register;
     private AppCompatButton btn_login_with_google;
-
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
+    private Button btn_login;
+    private EditText edt_pass, edt_acc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +65,21 @@ public class LoginActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         initView();
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = edt_acc.getText().toString().trim();
+                String passWord = edt_pass.getText().toString().trim();
+                SignInWithServer(userName, passWord);
+                clickSignInWithFỉrebase(userName, passWord);
 
+            }
+        });
         changeScreenRegister();
         loginWithGoogle();
     }
 
-    private void changeScreenRegister(){
+    private void changeScreenRegister() {
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,14 +88,79 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void initView(){
+    private void initView() {
         tv_register = (TextView) findViewById(R.id.tv_register);
         btn_login_with_google = (AppCompatButton) findViewById(R.id.btn_login_with_google);
+        btn_login = findViewById(R.id.btn_login);
+        edt_acc = findViewById(R.id.edt_acc);
+        edt_pass = findViewById(R.id.edt_pass);
+
     }
 
-    private void loginFirebase(String username, String password){
-        fAuth.signInWithEmailAndPassword(username, password);
+    private void dimissProgress() {
+        ProgressBarDialog.getInstance(this).closeDialog();
     }
+
+    private void showProgress() {
+        ProgressBarDialog.getInstance(this).showDialog("Vui lòng chờ", this);
+    }
+
+    private void SignInWithServer(String name, String passWord) {
+        JSONObject user = new JSONObject();
+
+        try {
+            user.put("userNamePhone", name);
+            user.put("password", passWord);
+            JSONObject data = new JSONObject();
+            data.put("data", user);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN, user, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(LoginActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+
+                Log.e("LoginActivity", ""+response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+        VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().add(jsonObjectRequest);
+
+
+    }
+
+    private void clickSignInWithFỉrebase(String userName,String passWord) {
+                    showProgress();
+                    fAuth.signInWithEmailAndPassword(userName, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                dimissProgress();
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(LoginActivity.this, com.app.projectfinal.activity.MainActivity.class));
+                                finish();
+                            } else {
+                                dimissProgress();
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    });
+
+            }
+
+
+
+
 
     public void checkUserAccessLevel(String uid) {
         DocumentReference df = fStore.collection("Users").document(uid);

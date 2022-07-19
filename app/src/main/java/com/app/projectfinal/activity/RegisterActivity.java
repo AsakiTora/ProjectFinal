@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.projectfinal.R;
 import com.app.projectfinal.utils.Constant;
+import com.app.projectfinal.utils.VolleySingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,8 +44,6 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private StringRequest mStringRequest;
-    private RequestQueue mRequestQueue;
 
     AppCompatButton btn_register;
     TextView tv_login;
@@ -66,19 +65,23 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        mRequestQueue = Volley.newRequestQueue(this);
         initView();
         changeScreenLogin();
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerServer(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
-                registerFirebase(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
+                if (edt_pass.getText().toString().trim().equals(edt_re_pass.getText().toString())){
+                    registerServer(Objects.requireNonNull(edt_phone.getText()).toString().trim(), Objects.requireNonNull(edt_pass.getText()).toString().trim(), Objects.requireNonNull(edt_acc.getText()).toString().trim()) ;
+                    registerFirebase(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
+                }else {
+                    Toast.makeText(RegisterActivity.this, "" +"Nhập lại mật khẩu", Toast.LENGTH_LONG).show();
+
+                }
+
             }
         });
     }
-
     private void sendMessageEmail(String email){
         ActionCodeSettings actionCodeSettings =
                 ActionCodeSettings.newBuilder()
@@ -108,12 +111,13 @@ public class RegisterActivity extends AppCompatActivity {
         edt_re_pass = (TextInputEditText) findViewById(R.id.edt_re_pass);
         tv_login = (TextView) findViewById(R.id.tv_login);
     }
-
-    private void registerServer(final String phone, final String pass){
+    private void registerServer(final String phone, final String pass, String name){
         JSONObject user = new JSONObject();
         try {
             user.put("phone", phone);
             user.put("password", pass);
+            user.put("userName", name);
+
             JSONObject data = new JSONObject();
             data.put("user", user);
             JSONObject datas = new JSONObject();
@@ -134,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
             }
         });
-        mRequestQueue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().add(jsonObjectRequest);
     }
 
     public boolean checkField(EditText textField){
