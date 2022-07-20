@@ -11,9 +11,14 @@
     <string name="acc_sdt">Tên đăng nhập / SĐT</string>
     <string name="account">Tên đăng nhập</string>
     <string name="phone_number">Số điện thoại</string>
+    <string name="country_code">+84</string>
     <string name="pass">Mật khẩu</string>
     <string name="re_pass">Nhập lại mật khẩu</string>
     <string name="remember">Ghi nhớ tôi</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="enter_otp">Nhập mã otp</string>
+    <string name="no_otp">Chưa nhận được mã otp?</string>
+    <string name="re_otp"><u>Gửi lại</u></string>
     <string name="forgot_pass">Quên mật khẩu?</string>
     <string name="no_acc">Không có tài khoản?</string>
     <string name="already_acc">Đã có tài khoản?</string>

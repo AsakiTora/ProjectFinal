@@ -57,22 +57,34 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     private EditText edt_pass, edt_acc;
 
+    private boolean isLoginFirebase;
+    private boolean isLoginServer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-
+        isLoginFirebase = false;
+        isLoginServer = false;
         initView();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showProgress();
                 String userName = edt_acc.getText().toString().trim();
                 String passWord = edt_pass.getText().toString().trim();
-                SignInWithServer(userName, passWord);
-                clickSignInWithFỉrebase(userName, passWord);
-
+                signInWithServer(userName, passWord);
+                signInWithFirebase(userName, passWord);
+                if (isLoginFirebase && isLoginServer){
+                    dismissProgress();
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
+                }
             }
         });
         changeScreenRegister();
@@ -97,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void dimissProgress() {
+    private void dismissProgress() {
         ProgressBarDialog.getInstance(this).closeDialog();
     }
 
@@ -105,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
         ProgressBarDialog.getInstance(this).showDialog("Vui lòng chờ", this);
     }
 
-    private void SignInWithServer(String name, String passWord) {
+    private void signInWithServer(String name, String passWord) {
         JSONObject user = new JSONObject();
 
         try {
@@ -122,45 +134,40 @@ public class LoginActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN, user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(LoginActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
-
-                Log.e("LoginActivity", ""+response.toString());
+                //Toast.makeText(LoginActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+                isLoginServer = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(LoginActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
+                isLoginServer = false;
             }
         });
         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().add(jsonObjectRequest);
-
-
     }
 
-    private void clickSignInWithFỉrebase(String userName,String passWord) {
+    private void signInWithFirebase(String userName,String passWord) {
                     showProgress();
                     fAuth.signInWithEmailAndPassword(userName, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                dimissProgress();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(LoginActivity.this, com.app.projectfinal.activity.MainActivity.class));
-                                finish();
+                                //dismissProgress();
+                                //Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                                //startActivity(new Intent(LoginActivity.this, com.app.projectfinal.activity.MainActivity.class));
+                                //finish();
+                                isLoginFirebase = true;
                             } else {
-                                dimissProgress();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
+                                //dismissProgress();
+                                //Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();\
+                                isLoginFirebase = false;
                             }
 
                         }
                     });
 
             }
-
-
-
-
 
     public void checkUserAccessLevel(String uid) {
         DocumentReference df = fStore.collection("Users").document(uid);
