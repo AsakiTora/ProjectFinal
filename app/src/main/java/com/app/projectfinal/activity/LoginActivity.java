@@ -77,14 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 String passWord = edt_pass.getText().toString().trim();
                 signInWithServer(userName, passWord);
                 signInWithFirebase(userName, passWord);
-                if (isLoginFirebase && isLoginServer){
-                    dismissProgress();
-                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
-                }
+//                if (isLoginFirebase && isLoginServer){
+//                    dismissProgress();
+//                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                    finish();
+//                } else {
+//                    dismissProgress();
+//                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
+//                }
             }
         });
         changeScreenRegister();
@@ -130,17 +131,16 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN, user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                //Toast.makeText(LoginActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
                 isLoginServer = true;
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(LoginActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
                 isLoginServer = false;
             }
         });

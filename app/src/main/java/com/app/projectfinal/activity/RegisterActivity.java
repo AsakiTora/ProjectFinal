@@ -79,10 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (edt_pass.getText().toString().trim().equals(edt_re_pass.getText().toString())){
-                    //registerServer(Objects.requireNonNull(edt_phone.getText()).toString().trim(), Objects.requireNonNull(edt_pass.getText()).toString().trim(), Objects.requireNonNull(edt_acc.getText()).toString().trim()) ;
-                    registerFirebase(Objects.requireNonNull(edt_phone.getText()).toString().trim(), Objects.requireNonNull(edt_pass.getText()).toString().trim());
+                    registerServer(Objects.requireNonNull(edt_phone.getText()).toString().trim(), Objects.requireNonNull(edt_pass.getText()).toString().trim(), Objects.requireNonNull(edt_acc.getText()).toString().trim()) ;
+                    registerFirebase(Objects.requireNonNull(edt_acc.getText()).toString().trim(), Objects.requireNonNull(edt_phone.getText()).toString().trim(), Objects.requireNonNull(edt_pass.getText()).toString().trim());
                 }else {
-                    Toast.makeText(RegisterActivity.this, "" +"Nhập lại mật khẩu", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Nhập lại mật khẩu", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -138,6 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(RegisterActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+                Log.e(TAG, "onResponse: " +  response);
                 //Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 //startActivity(intent);
             }
@@ -162,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
         return valid;
     }
 
-    private void registerFirebase(String username, String password){
+    private void registerFirebase(String username, String phone_number, String password){
         String checkEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String checkPhoneNumber = "^[0-9]{9,10}$";
         if (username.matches(checkEmail)){
@@ -185,12 +186,12 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         } else if (username.matches(checkPhoneNumber)){
-            checkVerifyPhoneNumber(username, password);
+            checkVerifyPhoneNumber(username, phone_number, password);
         }
 
     }
 
-    private void checkVerifyPhoneNumber(String phone_number, String password){
+    private void checkVerifyPhoneNumber(String username, String phone_number, String password){
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(fAuth)
                         .setPhoneNumber(tv_country_code.getText().toString().trim() + phone_number) // Phone number to verify
@@ -199,7 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                signInWithPhoneAuthCredential(phoneAuthCredential, password);
+                                signInWithPhoneAuthCredential(username, phoneAuthCredential, password);
                             }
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
@@ -223,7 +224,7 @@ public class RegisterActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, String password) {
+    private void signInWithPhoneAuthCredential(String username, PhoneAuthCredential credential, String password) {
         fAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -235,7 +236,8 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser user = fAuth.getCurrentUser();
                             DocumentReference df = fStore.collection("Users").document(user.getUid());
                             Map<String, Object> userInfo = new HashMap<>();
-                            userInfo.put("username", user.getPhoneNumber());
+                            userInfo.put("username", username);
+                            userInfo.put("phone_number", credential);
                             userInfo.put("password", password);
                             df.set(userInfo);
                             goToMainActivity(user.getPhoneNumber());
