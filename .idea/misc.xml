@@ -3,8 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable-v24/custom_relative_header.xml" value="0.2255" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable-v24/ic_baseline_shopping_cart_24.xml" value="0.2255" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bd_border_20_topbot_left_right.xml" value="0.276" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_20.xml" value="0.276" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_25.xml" value="0.324" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_40.xml" value="0.276" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_40_header_user.xml" value="0.324" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_item_rcv_cart.xml" value="0.299" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/ic_cart.xml" value="0.3465" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_cart.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_login.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_logout.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_main.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_register.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_splash.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_home.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_notifications.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_scroll_home.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_user.xml" value="0.5" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/item_cart.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/item_product.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/item_rcv_notification.xml" value="0.3875" />
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_enter_otp.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_login.xml" value="0.20521590423257802" />
-        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_register.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_logout.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_main.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/Public/ProjectFinal/app/src/main/res/layout/activity_splash.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/bg_border_20_bottom_left_right.xml" value="0.1675" />
         <entry key="..\:/Users/Public/Test/app/src/main/res/drawable/bg_stroke_border_20.xml" value="0.121" />
