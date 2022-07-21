@@ -45,8 +45,8 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true"
                     android:background="@drawable/bg_border_20_bottom_left_right"
+                    android:fitsSystemWindows="true"
                     app:menu="@menu/dashboard_menu">
 
                     <androidx.appcompat.widget.AppCompatEditText
