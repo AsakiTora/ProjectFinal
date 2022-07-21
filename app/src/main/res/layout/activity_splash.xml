@@ -5,13 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SplashActivity"
-    android:background="@color/white">
+    android:background="@color/color_main">
 
-    <TextView
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:src="@drawable/logo" />
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="hello"/>
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/background" />
 
 </RelativeLayout>

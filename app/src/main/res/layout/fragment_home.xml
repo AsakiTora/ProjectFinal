@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f3f3f3"
-    tools:context=".activity.MainActivity">
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -94,12 +94,12 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:text="Sản phẩm mới nhất"
-                android:textColor="@color/green"
+                android:textColor="@color/color_main"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvSP"
+                android:id="@+id/rcvProduct"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
@@ -114,7 +114,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal|center_vertical"
         android:indeterminate="true"
-        android:indeterminateTint="@color/green"
+        android:indeterminateTint="@color/color_main"
         android:indeterminateTintMode="src_atop"
         android:visibility="gone" />
 

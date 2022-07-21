@@ -17,10 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.projectfinal.R;
@@ -43,6 +45,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = edt_acc.getText().toString().trim();
                 String passWord = edt_pass.getText().toString().trim();
-                SignInWithServer(userName, passWord);
-                clickSignInWithFỉrebase(userName, passWord);
+                signInWithServer(userName, passWord);
+//                clickSignInWithFỉrebase(userName, passWord);
 
             }
         });
@@ -97,15 +100,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void dimissProgress() {
-        ProgressBarDialog.getInstance(this).closeDialog();
-    }
 
-    private void showProgress() {
-        ProgressBarDialog.getInstance(this).showDialog("Vui lòng chờ", this);
-    }
+private  void validateLogin(){
 
-    private void SignInWithServer(String name, String passWord) {
+}
+    private void signInWithServer(String name, String passWord) {
         JSONObject user = new JSONObject();
 
         try {
@@ -118,13 +117,16 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN, user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(LoginActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
 
+                Toast.makeText(LoginActivity.this, "" + "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
                 Log.e("LoginActivity", ""+response.toString());
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -132,24 +134,22 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
 
             }
-        });
+
+        }) ;
         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().add(jsonObjectRequest);
 
 
     }
 
     private void clickSignInWithFỉrebase(String userName,String passWord) {
-                    showProgress();
                     fAuth.signInWithEmailAndPassword(userName, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                dimissProgress();
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(LoginActivity.this, com.app.projectfinal.activity.MainActivity.class));
                                 finish();
                             } else {
-                                dimissProgress();
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
                             }
 

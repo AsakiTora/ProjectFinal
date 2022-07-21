@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (edt_pass.getText().toString().trim().equals(edt_re_pass.getText().toString())){
                     registerServer(Objects.requireNonNull(edt_phone.getText()).toString().trim(), Objects.requireNonNull(edt_pass.getText()).toString().trim(), Objects.requireNonNull(edt_acc.getText()).toString().trim()) ;
-                    registerFirebase(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
+//                    registerFirebase(Objects.requireNonNull(edt_phone.getText()).toString(), Objects.requireNonNull(edt_pass.getText()).toString());
                 }else {
                     Toast.makeText(RegisterActivity.this, "" +"Nhập lại mật khẩu", Toast.LENGTH_LONG).show();
 
@@ -111,6 +111,9 @@ public class RegisterActivity extends AppCompatActivity {
         edt_re_pass = (TextInputEditText) findViewById(R.id.edt_re_pass);
         tv_login = (TextView) findViewById(R.id.tv_login);
     }
+     private  void  validateRegister(){
+
+     }
     private void registerServer(final String phone, final String pass, String name){
         JSONObject user = new JSONObject();
         try {
@@ -128,9 +131,10 @@ public class RegisterActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constant.REGISTER, user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(RegisterActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "" + "Đăng ký thành công!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override
