@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:id="@+id/progressbar" />
+        android:background="@drawable/bg_border_20_bottom_left_right"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/dashboard_menu">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_search"
+            style="@style/InputText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_border_20"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/_6sdp"
+            android:hint="@string/search"
+            android:padding="8dp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/ViewPager"
@@ -21,9 +33,9 @@
         android:layout_above="@id/AHBottomNavigation" />
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/AHBottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/AHBottomNavigation"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
 

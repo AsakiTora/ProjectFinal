@@ -10,13 +10,15 @@
     <group>
 
         <item
+            android:id="@+id/action_return_home"
+            android:title="Trở về trang chủ" />
+
+        <item
             android:id="@+id/action_report"
-            android:title="Báo cáo sản phẩm"
-            android:icon="@drawable/ic_report" />
+            android:title="Báo cáo sản phẩm" />
         <item
             android:id="@+id/action_help"
-            android:title="Trợ giúp"
-            android:icon="@drawable/ic_help" />
+            android:title="Trợ giúp" />
     </group>
 
 
