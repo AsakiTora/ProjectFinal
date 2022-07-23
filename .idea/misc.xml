@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bd_border_20_topbot_right.xml" value="0.299" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_boder_20_green.xml" value="0.299" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_boder_20_green1.xml" value="0.25" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_20.xml" value="0.299" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_20_bottom_left_right.xml" value="0.299" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/drawable/bg_border_25.xml" value="0.299" />
@@ -18,8 +19,11 @@
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_logout.xml" value="0.3875" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_myshop.xml" value="0.3875" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_product_detail.xml" value="0.3875" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_shop_settings.xml" value="0.3875" />
+        <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/activity_splash.xml" value="0.3875" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_notifications.xml" value="0.25" />
         <entry key="..\:/Users/Ngoc/Desktop/ProjectFinal/app/src/main/res/layout/fragment_scroll_home.xml" value="0.25" />
@@ -30,5 +34,5 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
