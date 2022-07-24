@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
     private View view;
     private RecyclerView rcvProduct;
     private ProductAdapter productAdapter;
-    private List<Product> products;
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -70,8 +70,10 @@ public class HomeFragment extends Fragment {
         if (view == null)
             view = inflater.inflate(R.layout.fragment_home, container, false);
         initView();
-        products = new ArrayList<>();
-        showProducts();
+        LinearLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        rcvProduct.setLayoutManager(layoutManager);
+        //productAdapter = new ProductAdapter(products, getContext());
+        rcvProduct.setAdapter(productAdapter);
         return view;
     }
 
@@ -80,64 +82,5 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void showProducts() {
-        LinearLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        rcvProduct.setLayoutManager(layoutManager);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PRODUCTS, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    JSONObject jsonObject = response.getJSONObject("data");
-                    JSONArray jsonArray = jsonObject.getJSONArray("products");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        String id = object.getString("id");
-                        String store_id = object.getString("storeId");
-                        String category_id = object.getString("categoryId");
-                        String unit_id = object.getString("unitId");
-                        String quantity = object.getString("quantity");
-                        String price = object.getString("price");
-                        String product_name = object.getString("productName");
-                        String img_thumb = object.getString("image1");
-                        String img_large_1 = object.getString("image2");
-                        String img_large_2 = object.getString("image3");
-                        String img_large_3 = object.getString("image4");
-                        String img_large_4 = object.getString("image5");
-                        List<Object> list_img = new ArrayList<>();
-                        list_img.add(img_thumb);
-                        list_img.add(img_large_1);
-                        list_img.add(img_large_2);
-                        list_img.add(img_large_3);
-                        list_img.add(img_large_4);
-                        String description = object.getString("description");
-                        String status = object.getString("status");
-                        String created_at = object.getString("createdAt");
-                        String store_name = object.getString("storeName");
-                        String category_name = object.getString("categoryName");
-                        String unit_name = object.getString("unitName");
-
-                        products.add(new Product(id, store_id, category_id, unit_id, quantity, price, product_name, description, status, created_at, store_name, category_name, unit_name, list_img));
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
-
-                }
-                productAdapter = new ProductAdapter(products, getContext());
-                rcvProduct.setAdapter(productAdapter);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-        VolleySingleton.getInstance(getContext()).getRequestQueue().add(jsonObjectRequest);
-
-    }
 }

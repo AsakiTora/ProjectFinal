@@ -2,7 +2,21 @@ package com.app.projectfinal.model;
 
 public class Category {
 
-    private String name, image;
+    private String id, name, image;
+
+    public Category(String id, String name, String image) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
