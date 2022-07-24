@@ -1,14 +1,21 @@
 package com.app.projectfinal.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -25,24 +32,27 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager manager;
     private AHBottomNavigation bottomNavigation;
     private ViewPager2 viewPager2;
+    private ActionBar actionBar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
-        }
-        if (Build.VERSION.SDK_INT >= 19) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, false);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_carts:
+                        startActivity(new Intent(MainActivity.this, CartActivity.class));
+                        Log.e("TAG", "onOptionsItemSelected: abc" );
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
         bottomNavigation = findViewById(R.id.AHBottomNavigation);
         viewPager2 = findViewById(R.id.ViewPager);
         viewPager2.setAdapter(new ViewPagerAdapter(this));
@@ -77,18 +87,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_menu, menu);
+        return true;
     }
 
-    public void countCart(int count) {
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_carts:
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                Log.e("TAG", "onOptionsItemSelected: abc" );
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void countNotification(int count) {
         AHNotification notification = new AHNotification.Builder()
                 .setText(String.valueOf(count))
                 .setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.red))

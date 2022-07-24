@@ -53,11 +53,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String TAG = "RegisterActivity";
     private AppCompatButton btn_register;
-    private TextView tv_login, tv_country_code;
+    private TextView tv_login;
     private TextInputEditText edt_phone;
     private TextInputEditText edt_acc;
     private TextInputEditText edt_pass;
     private TextInputEditText edt_re_pass;
+    private String country_code = "+84";
 
     //firebase
     private FirebaseAuth fAuth;
@@ -144,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(RegisterActivity.this, "" + error.toString(), Toast.LENGTH_LONG).show();
+                Log.e(TAG, "onErrorResponse: " + error );
             }
         });
         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().add(jsonObjectRequest);
@@ -164,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerFirebase(String username, String phone_number, String password){
         String checkEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String checkPhoneNumber = "^[0-9]{9,10}$";
-        if (username.matches(checkEmail)){
+        if (phone_number.matches(checkEmail)){
             fAuth.createUserWithEmailAndPassword(username, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
@@ -173,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
                     DocumentReference df = fStore.collection("Users").document(user.getUid());
                     Map<String, Object> userInfo = new HashMap<>();
                     userInfo.put("username", username);
+                    userInfo.put("phone_number", phone_number);
                     userInfo.put("password", password);
                     df.set(userInfo);
                     //finish();
@@ -183,7 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 }
             });
-        } else if (username.matches(checkPhoneNumber)){
+        } else if (phone_number.matches(checkPhoneNumber)){
             checkVerifyPhoneNumber(username, phone_number, password);
         }
 
@@ -192,7 +195,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void checkVerifyPhoneNumber(String username, String phone_number, String password){
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(fAuth)
-                        .setPhoneNumber(tv_country_code.getText().toString().trim() + phone_number) // Phone number to verify
+                        .setPhoneNumber(country_code + phone_number.substring(1)) // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -235,7 +238,7 @@ public class RegisterActivity extends AppCompatActivity {
                             DocumentReference df = fStore.collection("Users").document(user.getUid());
                             Map<String, Object> userInfo = new HashMap<>();
                             userInfo.put("username", username);
-                            userInfo.put("phone_number", credential);
+                            userInfo.put("phone_number", Objects.requireNonNull(edt_phone.getText()).toString());
                             userInfo.put("password", password);
                             df.set(userInfo);
                             goToMainActivity(user.getPhoneNumber());
@@ -263,7 +266,8 @@ public class RegisterActivity extends AppCompatActivity {
     private void goToEnterOtpActivity(String phone_number, String verification_id) {
         Intent intent = new Intent(this, EnterOtpActivity.class);
         intent.putExtra("phone_number", phone_number);
-        intent.putExtra("password", edt_pass.getText().toString().trim());
+        intent.putExtra("username", Objects.requireNonNull(edt_acc.getText()).toString().trim());
+        intent.putExtra("password", Objects.requireNonNull(edt_pass.getText()).toString().trim());
         intent.putExtra("verification_id", verification_id);
         startActivity(intent);
     }

@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Product {
 
-    private String id, id_shop, id_category, id_unit, quantity, price, name, description, status, date_create, store_name, category_name, unit_name;
+    private String id, id_shop, id_category, id_unit, quantity, price, name, description, status, date_create, shop_name, category_name, unit_name;
     private List<Object> image;
 
-    public Product(String id, String id_shop, String id_category, String id_unit, String quantity, String price, String name, String description, String status, String date_create, String store_name, String category_name, String unit_name, List<Object> image) {
+    public Product(String id, String id_shop, String id_category, String id_unit, String quantity, String price, String name, String description, String status, String date_create, String shop_name, String category_name, String unit_name, List<Object> image) {
         this.id = id;
         this.id_shop = id_shop;
         this.id_category = id_category;
@@ -19,7 +19,7 @@ public class Product {
         this.description = description;
         this.status = status;
         this.date_create = date_create;
-        this.store_name = store_name;
+        this.shop_name = shop_name;
         this.category_name = category_name;
         this.unit_name = unit_name;
         this.image = image;
@@ -113,12 +113,12 @@ public class Product {
         this.image = image;
     }
 
-    public String getStore_name() {
-        return store_name;
+    public String getShop_name() {
+        return shop_name;
     }
 
     public void setStore_name(String store_name) {
-        this.store_name = store_name;
+        this.shop_name = shop_name;
     }
 
     public String getCategory_name() {

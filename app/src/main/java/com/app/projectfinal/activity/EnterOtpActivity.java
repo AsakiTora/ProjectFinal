@@ -37,10 +37,12 @@ public class EnterOtpActivity extends AppCompatActivity {
     private EditText edt_enter_otp;
     private AppCompatButton btn_confirm_otp;
     private TextView tv_resent_otp;
-    private String phone_number, verification_id, password;
+    private String phone_number, verification_id, password, username, permission;
 
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
+
+    private String country_code = "+84";
 
     PhoneAuthProvider.ForceResendingToken _forceResendingToken;
 
@@ -64,8 +66,10 @@ public class EnterOtpActivity extends AppCompatActivity {
 
     private void getDataIntent() {
         phone_number = getIntent().getStringExtra("phone_number");
+        permission = getIntent().getStringExtra("permission");
         verification_id = getIntent().getStringExtra("verification_id");
         password = getIntent().getStringExtra("password");
+        username = getIntent().getStringExtra("username");
     }
 
     private void onClickSentOtp() {
@@ -74,7 +78,7 @@ public class EnterOtpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String otp = edt_enter_otp.getText().toString().trim();
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verification_id, otp);
-                signInWithPhoneAuthCredential(credential, password);
+                signInWithPhoneAuthCredential(username, credential, password);
             }
         });
     }
@@ -82,14 +86,14 @@ public class EnterOtpActivity extends AppCompatActivity {
     private void onClickReSentOtp() {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(fAuth)
-                        .setPhoneNumber(phone_number)       // Phone number to verify
+                        .setPhoneNumber(country_code + phone_number.substring(1))       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setForceResendingToken(_forceResendingToken)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                signInWithPhoneAuthCredential(phoneAuthCredential, password);
+                                signInWithPhoneAuthCredential(username, phoneAuthCredential, password);
                             }
 
                             @Override
@@ -109,35 +113,59 @@ public class EnterOtpActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, String password) {
-        fAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.e(TAG, "signInWithCredential:success");
-                            //FirebaseUser fUser = task.getResult().getUser();
-                            FirebaseUser user = fAuth.getCurrentUser();
-                            DocumentReference df = fStore.collection("Users").document(user.getUid());
-                            Map<String, Object> userInfo = new HashMap<>();
-                            userInfo.put("username", user.getPhoneNumber());
-                            userInfo.put("password", password);
-                            df.set(userInfo);
-                            goToMainActivity(user.getPhoneNumber());
-
-                            // Update UI
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                Toast.makeText(EnterOtpActivity.this,
-                                        "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+    private void signInWithPhoneAuthCredential(String username, PhoneAuthCredential credential, String password) {
+        if (permission != null){
+            fAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser fUser = task.getResult().getUser();
+                                assert fUser != null;
+                                goToMainActivity(fUser.getPhoneNumber());
+                            } else {
+                                // Sign in failed, display a message and update the UI
+                                Log.w(TAG, "signInWithCredential:failure", task.getException());
+                                if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                    // The verification code entered was invalid
+                                    Toast.makeText(EnterOtpActivity.this,
+                                            "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        } else {
+            fAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                //FirebaseUser fUser = task.getResult().getUser();
+                                FirebaseUser user = fAuth.getCurrentUser();
+                                DocumentReference df = fStore.collection("Users").document(user.getUid());
+                                Map<String, Object> userInfo = new HashMap<>();
+                                userInfo.put("username", username);
+                                userInfo.put("phone_number", phone_number);
+                                userInfo.put("password", password);
+                                df.set(userInfo);
+                                goToMainActivity(user.getPhoneNumber());
+
+                                // Update UI
+                            } else {
+                                // Sign in failed, display a message and update the UI
+                                Log.w(TAG, "signInWithCredential:failure", task.getException());
+                                if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                    // The verification code entered was invalid
+                                    Toast.makeText(EnterOtpActivity.this,
+                                            "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
+        }
+
     }
 
     private void goToMainActivity(String phone_number) {

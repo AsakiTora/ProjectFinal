@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -36,15 +37,17 @@ import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private List<Product> products;
-    private List<Category> categories;
+    public static final List<Product> products = new ArrayList<>();
+    public static final List<Category> categories = new ArrayList<>();
     private Bundle bundle;
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        products = new ArrayList<>();
 
+        bundle = new Bundle();
+        intent = new Intent();
         loadData();
     }
 
@@ -54,9 +57,10 @@ public class SplashActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     getProducts();
                     getCategories();
+
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
             }, 3000);
@@ -121,13 +125,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void getCategories() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PRODUCTS, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, CATEGORY, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
                 try {
                     JSONObject jsonObject = response.getJSONObject("data");
-                    JSONArray jsonArray = jsonObject.getJSONArray("products");
+                    JSONArray jsonArray = jsonObject.getJSONArray("categories");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
                         String id = object.getString("id");
@@ -136,6 +139,7 @@ public class SplashActivity extends AppCompatActivity {
 
                         categories.add(new Category(id, name, image));
                     }
+                    Log.e("TAG", "onResponse: " + categories );
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(SplashActivity.this, e.toString(), Toast.LENGTH_LONG).show();

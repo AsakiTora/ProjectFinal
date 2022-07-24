@@ -28,11 +28,11 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rcvCart"
-        android:padding="8dp"
-        android:layout_below="@id/toolbar"/>
+        android:layout_below="@id/toolbar"
+        android:padding="@dimen/_8sdp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,35 +57,35 @@
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tvBuy"
+            android:id="@+id/btn_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="@color/green"
-            android:text="@string/buy"
-            android:textSize="20sp"
-            android:textAllCaps="false"
             android:gravity="center"
+            android:padding="22dp"
+            android:text="@string/buy"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:padding="22dp"/>
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvSumPrice"
+            android:id="@+id/tv_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvSum"
+            android:layout_below="@id/tv_sum_price"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_toStartOf="@id/tvBuy"
+            android:layout_toStartOf="@id/btn_buy"
             android:textColor="@color/red"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvSum"
+            android:id="@+id/tv_sum_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
-            android:layout_toStartOf="@id/tvBuy"
+            android:layout_toStartOf="@id/btn_buy"
             android:text="@string/sum_price"
             android:textSize="16sp" />
     </RelativeLayout>

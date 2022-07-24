@@ -22,27 +22,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    private Context mContext;
-    private List<Category> mListLSP;
-    private Category loaiSanPham;
+    private Context context;
+    private List<Category> list_category;
+    private Category category;
 
-    public CategoryAdapter(Context context, List<Category> mListLSP){
-        this.mContext = context;
-        this.mListLSP = mListLSP;
+    public CategoryAdapter(Context context, List<Category> list_category){
+        this.context = context;
+        this.list_category = list_category;
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private TextView tvTenLoai;
-        private CircleImageView imgHinhLoai;
+        private TextView tv_name_category;
+        private CircleImageView img_category;
 
         private ItemClickListener itemClickListener;
 
         public ViewHolder(View view) {
             super(view);
-            tvTenLoai = view.findViewById(R.id.tvTenLoai);
-            imgHinhLoai = view.findViewById(R.id.imgHinhLoai);
+            tv_name_category = view.findViewById(R.id.tv_name_category);
+            img_category = view.findViewById(R.id.img_category);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -69,7 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_category, parent,false);
         return new ViewHolder(view);
     }
@@ -77,10 +76,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        loaiSanPham = mListLSP.get(position);
+        category = list_category.get(position);
 
-//        holder.tvTenLoai.setText(loaiSanPham.getTen_loai());
-//        Glide.with(mContext).load(loaiSanPham.getHinh_loai()).into(holder.imgHinhLoai);
+        holder.tv_name_category.setText(category.getName());
+        Glide.with(context).load(category.getImage()).into(holder.img_category);
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -102,6 +101,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mListLSP.size();
+        return list_category.size();
     }
 }

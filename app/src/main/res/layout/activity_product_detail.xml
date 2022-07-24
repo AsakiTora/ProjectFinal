@@ -166,6 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_new_product"
+                android:layout_marginTop="9dp"
                 android:padding="8dp" />
 
         </RelativeLayout>
@@ -195,7 +196,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@color/greenLight"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_1sdp"
             android:src="@drawable/ic_add_cart" />
 
         <androidx.appcompat.widget.AppCompatButton

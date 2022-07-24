@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_10sdp"
-
         app:cardElevation="8dp">
 
         <RelativeLayout
@@ -39,7 +38,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
-                android:id="@+id/txt_nameShop"
+                android:id="@+id/tv_name_shop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"

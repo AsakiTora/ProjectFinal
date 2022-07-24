@@ -7,21 +7,20 @@
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgHinhLoai"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/img_category"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:gravity="center"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/tvTenLoai"
+        android:id="@+id/tv_name_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="táo"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:gravity="center"
-        android:textColor="@color/black"
+        style="@style/InputText"
         android:layout_gravity="center|bottom"/>
 
 

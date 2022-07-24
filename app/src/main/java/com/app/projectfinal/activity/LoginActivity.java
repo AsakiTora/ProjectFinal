@@ -36,15 +36,26 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient gsc;
     private Button btn_login;
     private EditText edt_pass, edt_acc;
+
+    private String country_code = "+84";
 
     private boolean isLoginFirebase;
     private boolean isLoginServer;
@@ -147,28 +160,88 @@ public class LoginActivity extends AppCompatActivity {
         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().add(jsonObjectRequest);
     }
 
-    private void signInWithFirebase(String userName,String passWord) {
-                    showProgress();
-                    fAuth.signInWithEmailAndPassword(userName, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                isLoginFirebase = true;
-                            } else {
-                                isLoginFirebase = false;
+    private void signInWithFirebase(String user_name,String pass_word) {
+        String checkPhoneNumber = "^[0-9]{10}$";
+        if (user_name.matches(checkPhoneNumber)){
+            checkVerifyPhoneNumber(user_name);
+        }
+        fAuth.signInWithEmailAndPassword(user_name, pass_word).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    isLoginFirebase = true;
+                } else {
+                    isLoginFirebase = false;
+                }
+            }
+        });
+    }
+
+    private void checkVerifyPhoneNumber(String phone_number) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(fAuth)
+                        .setPhoneNumber(country_code + phone_number.substring(1)) // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                signInWithPhoneAuthCredential(phoneAuthCredential);
                             }
 
-                        }
-                    });
+                            @Override
+                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                Toast.makeText(LoginActivity.this,
+                                        "VerificationFailed" + e, Toast.LENGTH_SHORT).show();
+                                if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                    // Invalid request
+                                } else if (e instanceof FirebaseTooManyRequestsException) {
+                                    // The SMS quota for the project has been exceeded
+                                }
+                            }
+                            @Override
+                            public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                super.onCodeSent(verificationId, forceResendingToken);
+                                goToEnterOtpActivity(phone_number, verificationId);
+                            }
+                        })          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+    }
 
-            }
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        fAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser fUser = task.getResult().getUser();
+                            assert fUser != null;
+                            checkUserAccessLevel(fUser.getUid());
+                        } else {
+                            // Sign in failed, display a message and update the UI
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                                Toast.makeText(LoginActivity.this,
+                                        "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+    }
 
     public void checkUserAccessLevel(String uid) {
         DocumentReference df = fStore.collection("Users").document(uid);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
+                if (Objects.equals(documentSnapshot.getString("password"), edt_pass.getText().toString().trim())) {
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    isLoginFirebase = true;
+                } else {
+                    isLoginFirebase = false;
+                }
             }
         });
     }
@@ -200,5 +273,15 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void goToEnterOtpActivity(String phone_number, String verification_id) {
+        Intent intent = new Intent(this, EnterOtpActivity.class);
+        intent.putExtra("phone_number", phone_number);
+        intent.putExtra("permission", "login");
+        intent.putExtra("username", Objects.requireNonNull(edt_acc.getText()).toString().trim());
+        intent.putExtra("password", Objects.requireNonNull(edt_pass.getText()).toString().trim());
+        intent.putExtra("verification_id", verification_id);
+        startActivity(intent);
     }
 }

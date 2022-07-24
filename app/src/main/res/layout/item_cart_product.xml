@@ -7,6 +7,7 @@
     app:cardMaxElevation="8dp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="@dimen/_3sdp"
+    android:background="@color/white"
     android:orientation="horizontal">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -15,9 +16,8 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:layout_marginStart="8dp"
-            android:visibility="gone"
-            android:id="@+id/cbxProduct"
+            android:layout_margin="8dp"
+            android:id="@+id/chx_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -25,9 +25,8 @@
 
         <ImageView
             android:id="@+id/img_product"
-            android:layout_marginStart="8dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
             android:layout_gravity="center"
             android:scaleType="centerCrop"/>
 
@@ -38,7 +37,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txt_NameSP"
+                android:id="@+id/tv_name_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -48,13 +47,13 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <TextView
-                android:id="@+id/imt_cart_product_phanLoai"
+                android:id="@+id/tv_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phân Loại: Gói 1kg"
                 android:padding="@dimen/_3sdp" />
             <TextView
-                android:id="@+id/txt_priceSP"
+                android:id="@+id/tv_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -71,26 +70,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:id="@+id/img_cart_product_Remove"
+                    android:id="@+id/img_remove"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/ic_remove"
                     app:tint="@color/black" />
-                <TextView
-                    android:id="@+id/edtSlCart"
+                <EditText
+                    android:id="@+id/edt_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_25sdp"
                     android:drawableTint="@color/black"
                     android:inputType="number"
-                    android:text="0"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp" />
                 <ImageButton
-                    android:id="@+id/img_cart_product_Add"
+                    android:id="@+id/img_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
