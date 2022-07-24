@@ -3,7 +3,7 @@ package com.app.projectfinal.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
+import static com.app.projectfinal.utils.Constant.REGISTER;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -133,13 +133,12 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Constant.REGISTER, user, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER, user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(RegisterActivity.this, "" + response.toString(), Toast.LENGTH_LONG).show();
-                Log.e(TAG, "onResponse: " +  response);
-                //Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override

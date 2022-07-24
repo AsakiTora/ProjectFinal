@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 viewPager2.setCurrentItem(position);
-                bottomNavigation.setIconActiveColor(position, R.color.red);
-                bottomNavigation.setTitleActiveColor(position, R.color.red);
+                bottomNavigation.setIconActiveColor(position, R.color.green);
+                bottomNavigation.setTitleActiveColor(position, R.color.green);
                 return true;
             }
         });

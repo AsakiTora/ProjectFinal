@@ -77,15 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 String passWord = edt_pass.getText().toString().trim();
                 signInWithServer(userName, passWord);
                 signInWithFirebase(userName, passWord);
-//                if (isLoginFirebase && isLoginServer){
-//                    dismissProgress();
-//                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    finish();
-//                } else {
-//                    dismissProgress();
-//                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
-//                }
+                if (isLoginFirebase && isLoginServer){
+                    dismissProgress();
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    dismissProgress();
+                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();
+                }
             }
         });
         changeScreenRegister();
@@ -153,14 +153,8 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                //dismissProgress();
-                                //Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
-                                //startActivity(new Intent(LoginActivity.this, com.app.projectfinal.activity.MainActivity.class));
-                                //finish();
                                 isLoginFirebase = true;
                             } else {
-                                //dismissProgress();
-                                //Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_LONG).show();\
                                 isLoginFirebase = false;
                             }
 
