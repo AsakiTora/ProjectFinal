@@ -2,21 +2,25 @@ package com.app.projectfinal.model;
 
 public class Category {
 
-    private String name, image;
+    private String nameCategory, imageCategory;
 
-    public String getName() {
-        return name;
+    public String getNameCategory() {
+        return nameCategory;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameCategory(String nameCategory) {
+        this.nameCategory = nameCategory;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageCategory() {
+        return imageCategory;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageCategory(String imageCategory) {
+        this.imageCategory = imageCategory;
+    }
+
+    public Category(String nameCategory) {
+        this.nameCategory = nameCategory;
     }
 }

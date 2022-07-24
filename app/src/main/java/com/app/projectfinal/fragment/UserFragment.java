@@ -19,17 +19,22 @@ public class UserFragment extends Fragment {
     private LinearLayout lnStartSell;
     private View view;
 
+    public UserFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (view == null)
-            view = inflater.inflate(R.layout.fragment_home, container, false);
+            view = inflater.inflate(R.layout.fragment_user, container, false);
         initView();
-        lnStartSell.setOnClickListener(v->{
-            Intent intent= new Intent(getContext(), AddProductActivity.class);
-            startActivity(intent);
+        lnStartSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getActivity(), AddProductActivity.class);
+                startActivity(intent);
+            }
         });
         return view;
     }
