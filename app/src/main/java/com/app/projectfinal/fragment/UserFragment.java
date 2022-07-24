@@ -11,29 +11,32 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.app.projectfinal.R;
+import com.app.projectfinal.activity.AddProductActivity;
 import com.app.projectfinal.activity.myshop;
 import com.app.projectfinal.activity.shop_settings;
 
 public class UserFragment extends Fragment {
-    private TextView textView ;
+    private LinearLayout lnStartSell;
+    private View view;
 
-    public UserFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
-        textView = view.findViewById(R.id.linear_user_ban);
-//        textView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getActivity(),shop_settings.class));
-//            }
-//        });
+        if (view == null)
+            view = inflater.inflate(R.layout.fragment_home, container, false);
+        initView();
+        lnStartSell.setOnClickListener(v->{
+            Intent intent= new Intent(getContext(), AddProductActivity.class);
+            startActivity(intent);
+        });
         return view;
+    }
+
+    private void initView() {
+        lnStartSell = view.findViewById(R.id.ln_start_sell);
+
     }
 
 }
