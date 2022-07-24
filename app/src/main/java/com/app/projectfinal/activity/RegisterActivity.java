@@ -117,7 +117,6 @@ public class RegisterActivity extends AppCompatActivity {
         edt_pass = (TextInputEditText) findViewById(R.id.edt_pass);
         edt_re_pass = (TextInputEditText) findViewById(R.id.edt_re_pass);
         tv_login = (TextView) findViewById(R.id.tv_login);
-        tv_country_code = (TextView) findViewById(R.id.tv_country_code);
     }
 
     private void registerServer(final String phone, final String pass, String name){

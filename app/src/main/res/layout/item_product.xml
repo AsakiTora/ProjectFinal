@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    android:background="@drawable/bg_stroke_border_20">
 
-    <ImageView
-        android:id="@+id/imageProduct"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:scaleType="centerCrop" />
-
-    <View
-        android:id="@+id/inFor"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_130sdp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_135sdp"
-        android:orientation="vertical">
+        android:layout_marginTop="@dimen/_100sdp"
+        android:background="@drawable/bg_stroke_border_20"
+        android:elevation="@dimen/_2sdp"
+        android:orientation="vertical"
+        android:padding="@dimen/_8sdp">
 
         <TextView
-
-            android:id="@+id/tvNameProduct"
-            style="@style/InputText"
+            android:id="@+id/tv_name_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:text="Thơm hahahaa" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="Tên sp" />
 
-        <TextView
-            android:id="@+id/tvPriceProduct"
-            style="@style/InputText"
-            android:layout_width="wrap_content"
-            android:textColor="@color/red"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:text="Thơm hahahaa" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="đ30000"
+                android:textColor="@color/red"
+                style="@style/SupportText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                tools:text="/" />
+
+            <TextView
+                android:id="@+id/tv_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kg"
+                android:textColor="@color/red"
+                style="@style/SupportText" />
+        </LinearLayout>
+
     </LinearLayout>
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_img_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_20sdp">
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:background="@drawable/bg_stroke_border_20"
+            android:scaleType="fitXY" />
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

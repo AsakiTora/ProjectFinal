@@ -1,8 +1,37 @@
 package com.app.projectfinal.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Product {
 
-    private String id_shop, id_category, id_unit, quantity, price, name, image, info, date_create, create_by, date_update, update_by, status;
+    private String id, id_shop, id_category, id_unit, quantity, price, name, description, status, date_create, store_name, category_name, unit_name;
+    private List<Object> image;
+
+    public Product(String id, String id_shop, String id_category, String id_unit, String quantity, String price, String name, String description, String status, String date_create, String store_name, String category_name, String unit_name, List<Object> image) {
+        this.id = id;
+        this.id_shop = id_shop;
+        this.id_category = id_category;
+        this.id_unit = id_unit;
+        this.quantity = quantity;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.date_create = date_create;
+        this.store_name = store_name;
+        this.category_name = category_name;
+        this.unit_name = unit_name;
+        this.image = image;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getId_shop() {
         return id_shop;
@@ -52,20 +81,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public String getDescription() {
+        return description;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
+    public void setDescription(String info) {
+        this.description = description;
     }
 
     public String getDate_create() {
@@ -76,35 +97,43 @@ public class Product {
         this.date_create = date_create;
     }
 
-    public String getCreate_by() {
-        return create_by;
-    }
-
-    public void setCreate_by(String create_by) {
-        this.create_by = create_by;
-    }
-
-    public String getDate_update() {
-        return date_update;
-    }
-
-    public void setDate_update(String date_update) {
-        this.date_update = date_update;
-    }
-
-    public String getUpdate_by() {
-        return update_by;
-    }
-
-    public void setUpdate_by(String update_by) {
-        this.update_by = update_by;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Object> getImage() {
+        return image;
+    }
+
+    public void setImage(List<Object> image) {
+        this.image = image;
+    }
+
+    public String getStore_name() {
+        return store_name;
+    }
+
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getUnit_name() {
+        return unit_name;
+    }
+
+    public void setUnit_name(String unit_name) {
+        this.unit_name = unit_name;
     }
 }
